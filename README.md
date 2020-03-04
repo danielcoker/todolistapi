@@ -1,3 +1,3 @@
-# Node.js and Express Boilerplate
+# Todolist API
 
-A Node.js and Express Boilerplate to accelerate the dev of Node.js APIs
+A todolist app APIs to manage upcoming tasks written in Node.js and Express
