@@ -21,6 +21,7 @@
     "@babel/node": "^7.5.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
+    "@hapi/joi": "^17.1.0",
     "bcryptjs": "^2.4.3",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",

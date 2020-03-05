@@ -1,8 +1,12 @@
 import express from 'express';
-import controllers from '../controllers';
+
+/**
+ * Router files.
+ */
+import auth from './auth';
 
 const router = express.Router();
 
-router.get('/home', controllers.home);
+router.use('/auth', auth);
 
 export default router;
