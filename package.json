@@ -2,10 +2,10 @@
   "name": "todo-api",
   "version": "1.0.0",
   "description": "Todo List API to manage upcoming tasks.",
-  "main": "start.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r ./src/utils/validateEnvironmentVars.js  --exec babel-node ./src/http/start.js --watch ./src --no-warnings",
+    "dev": "nodemon -r ./src/api/utils/validateEnvironmentVars.js  --exec babel-node ./src/index.js --watch ./src --no-warnings",
     "lint": "eslint ./src"
   },
   "keywords": [

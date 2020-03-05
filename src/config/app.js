@@ -1,7 +1,7 @@
 import express from 'express';
 import uuid from 'uuid/v4';
-import { log, logMiddleware } from '../utils/logger';
-import routes from './routes';
+import { log, logMiddleware } from '../api/utils/logger';
+import routes from '../api/routes';
 
 const app = express();
 app.use(express.json());

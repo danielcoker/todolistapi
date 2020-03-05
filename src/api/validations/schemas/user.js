@@ -27,7 +27,9 @@ const createUser = Joi.object({
   name: commonUserSchema.name.required(),
   phone: commonUserSchema.phone.required(),
   password: commonUserSchema.password.required(),
-  confirmPassword: commonUserSchema.confirmPassword.required()
+  confirmPassword: commonUserSchema.confirmPassword.required().messages({
+    'any.required': 'Confirm password is required'
+  })
 });
 
 export { createUser };

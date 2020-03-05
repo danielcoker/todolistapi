@@ -1,8 +1,8 @@
 import User from '../models/User';
-import catchControllerError from './catchControllerError';
-import invalidRequest from './invalidRequest';
-import validate from '../../validations/validate';
-import * as schemas from '../../validations/schemas/user';
+import catchControllerError from './helpers/catchControllerError';
+import invalidRequest from './helpers/invalidRequest';
+import validate from '../validations/validate';
+import * as schemas from '../validations/schemas/user';
 
 const register = catchControllerError('Register', async (req, res, next) => {
   const requestData = validate(schemas.createUser, req.body);
