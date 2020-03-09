@@ -32,4 +32,9 @@ const createUser = Joi.object({
   })
 });
 
-export { createUser };
+const login = Joi.object({
+  email: commonUserSchema.email.required(),
+  password: commonUserSchema.password.required()
+});
+
+export { createUser, login };

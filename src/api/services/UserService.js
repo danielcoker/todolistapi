@@ -30,6 +30,29 @@ const createUser = async (data, log) => {
   return formatUserData(user);
 };
 
+const login = async (data, log) => {
+  log.debug('Executing login service.');
+  const { email, password } = data;
+
+  log.debug('Checking if user exist.');
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    throw new ServiceError('User with this email not found.', 401);
+  }
+
+  log.debug('Checking if password matches');
+  const isMatch = await user.matchPassword(password);
+
+  if (!isMatch) {
+    throw new ServiceError('Incorrect password', 401);
+  }
+
+  const token = user.getSignedJwtToken();
+
+  return token;
+};
+
 /**
  * @desc Format the user data to be returned to client.
  * @param {object} user The raw user data gotten from the database.
@@ -45,5 +68,6 @@ const formatUserData = user =>
   );
 
 export default {
-  createUser
+  createUser,
+  login
 };
