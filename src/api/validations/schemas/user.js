@@ -4,13 +4,13 @@ const commonUserSchema = {
   name: Joi.string()
     .min(3)
     .trim(true),
-  phone: Joi.string(),
+  email: Joi.string().email(),
   password: Joi.string()
     .min(6)
     .trim(true)
-    .pattern(/\d/)
-    .pattern(/[A-Z]/)
-    .pattern(/[a-z]/)
+    // .pattern(/\d/)
+    // .pattern(/[A-Z]/)
+    // .pattern(/[a-z]/)
     .prefs({ abortEarly: true })
     .message({
       'string.min': 'Password must be at least 6 characters long.',
@@ -25,7 +25,7 @@ const commonUserSchema = {
 
 const createUser = Joi.object({
   name: commonUserSchema.name.required(),
-  phone: commonUserSchema.phone.required(),
+  email: commonUserSchema.email.required(),
   password: commonUserSchema.password.required(),
   confirmPassword: commonUserSchema.confirmPassword.required().messages({
     'any.required': 'Confirm password is required'
