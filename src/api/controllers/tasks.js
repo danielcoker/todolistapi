@@ -34,6 +34,8 @@ const createTask = catchControllerError(
       return invalidRequest(res, { errors: requestData.error });
     }
 
+    requestData.user = req.user;
+
     const { log } = res.locals;
 
     const task = await TaskService.createTask(requestData, log);
@@ -41,7 +43,7 @@ const createTask = catchControllerError(
     log.debug(
       'CreateTask service executed without error, sending back a success response.'
     );
-    res.status(200).json({ success: true, data: task });
+    res.status(201).json({ success: true, data: task });
   }
 );
 
