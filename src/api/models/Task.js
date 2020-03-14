@@ -7,7 +7,12 @@ const TaskSchema = new Schema({
   title: { type: String, required: true },
   slug: { type: String, unique: true },
   description: { type: String },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
+  }
 });
 
 // Create bootcamp slug from the name
