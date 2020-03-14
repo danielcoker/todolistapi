@@ -1,9 +1,12 @@
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import ErrorResponse from '../utils/errorResponse';
 import User from '../models/User';
+import mongoose from 'mongoose';
 
 const protect = async (req, res, next) => {
   let token;
+
+  const { log } = res.locals;
 
   if (
     req.headers.authorization &&
@@ -21,7 +24,7 @@ const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id);
 
     if (!user) {
       return res.status(401).json({
@@ -39,6 +42,9 @@ const protect = async (req, res, next) => {
         message: 'Token expired.'
       });
     }
+
+    log.debug(err);
+
     return res.status(401).json({
       success: false,
       message: 'Unable to authenticate token.'
