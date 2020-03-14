@@ -11,7 +11,7 @@ import ServiceError from './helpers/ServiceError';
  */
 const getTasks = async (req, log) => {
   log.debug('Getting tasks from database.');
-  return advancedResults(req, Task);
+  return advancedResults(req, Task, 'user');
 };
 
 /**
@@ -22,7 +22,7 @@ const getTasks = async (req, log) => {
  * @throws {Error} Any error that prevents the service from executing.
  */
 const createTask = async (data, log) => {
-  const { title, description } = data;
+  const { title, description, user } = data;
 
   log.debug('Checking if task exists in the database.');
   const existingTask = await Task.findOne({ title });
@@ -35,7 +35,8 @@ const createTask = async (data, log) => {
   log.debug('Saving task to database.');
   const task = await Task.create({
     title,
-    description
+    description,
+    user: user.id
   });
 
   return task;
