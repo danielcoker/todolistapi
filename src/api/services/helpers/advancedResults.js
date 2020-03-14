@@ -1,4 +1,4 @@
-const advancedResults = async (req, model, populate) => {
+const advancedResults = async (req, model, populates) => {
   let query;
 
   // Copy req.query
@@ -42,8 +42,14 @@ const advancedResults = async (req, model, populate) => {
 
   query = query.skip(startIndex).limit(limit);
 
-  if (populate) {
-    query = query.populate(populate);
+  if (populates && typeof populates == 'string') {
+    query = query.populate(populates);
+  }
+
+  if (populates && populates instanceof Array) {
+    populates.forEach(populate => {
+      query = query.populate(populate);
+    });
   }
 
   // Executing query
