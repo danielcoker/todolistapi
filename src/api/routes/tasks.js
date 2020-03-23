@@ -9,4 +9,6 @@ router
   .get(controllers.tasks.getTasks)
   .post(protect, controllers.tasks.createTask);
 
+router.route('/:slug').put(protect, controllers.tasks.updateTask);
+
 export default router;

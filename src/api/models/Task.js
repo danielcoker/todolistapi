@@ -15,11 +15,33 @@ const TaskSchema = new Schema({
   }
 });
 
-// Create bootcamp slug from the name
 TaskSchema.pre('save', function(next) {
-  this.slug = slugify(this.title, { lower: true });
+  this.slug = createSlug(this.title);
   next();
 });
+
+TaskSchema.pre('updateOne', function(next) {
+  console.log('Running pre upadte');
+  const title = this.getUpdate().$set.title;
+
+  if (!title) {
+    return next();
+  }
+
+  try {
+    this.slug = createSlug(title);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+/**
+ * @desc Create slug from title.
+ */
+const createSlug = title => {
+  const slug = slugify(title, { lower: true });
+  return slug;
+};
 
 const Task = mongoose.model('Task', TaskSchema);
 
