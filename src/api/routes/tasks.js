@@ -11,6 +11,7 @@ router
 
 router
   .route('/:slug')
+  .get(controllers.tasks.getTask)
   .put(protect, controllers.tasks.updateTask)
   .delete(protect, controllers.tasks.deleteTask);
 

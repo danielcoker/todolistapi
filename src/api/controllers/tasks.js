@@ -9,7 +9,7 @@ import * as schemas from '../validations/schemas/tasks';
  * @desc Get all tasks.
  * @access Public
  */
-const getTasks = catchControllerError('Get Task', async (req, res, next) => {
+const getTasks = catchControllerError('Get Tasks', async (req, res, next) => {
   const { log } = res.locals;
 
   const { pagination, results } = await TaskService.getTasks(req, log);
@@ -19,6 +19,23 @@ const getTasks = catchControllerError('Get Task', async (req, res, next) => {
     count: results.length,
     pagination,
     data: results
+  });
+});
+
+/**
+ * @desc Get one task by slug.
+ * @access Public
+ */
+const getTask = catchControllerError('Get Task', async (req, res, next) => {
+  const { log } = res.locals;
+
+  const slug = req.params.slug;
+
+  const task = await TaskService.getTask(slug, log);
+
+  res.status(200).json({
+    success: true,
+    data: task
   });
 });
 
@@ -96,4 +113,4 @@ const deleteTask = catchControllerError(
   }
 );
 
-export default { getTasks, createTask, updateTask, deleteTask };
+export default { getTasks, getTask, createTask, updateTask, deleteTask };

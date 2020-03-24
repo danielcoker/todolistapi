@@ -16,6 +16,24 @@ const getTasks = async (req, log) => {
 };
 
 /**
+ * @desc Service to get one task from the database.
+ * @param {object} req Request object from controller.
+ * @param {function} log Logger utility for logging messages.
+ * @returns {object} Returns single task.
+ * @throws {Error} Any error that prevents the service from executing.
+ */
+const getTask = async (slug, log) => {
+  log.debug('Getting task from database.');
+  const task = await Task.findOne({ slug }).populate('user', '-__v');
+
+  if (!task) {
+    throw new ServiceError('Task does not exist');
+  }
+
+  return task;
+};
+
+/**
  * @desc Service to create a new task.
  * @param {object} data Task data from controller.
  * @param {function} log Logger utility for logging messages.
@@ -108,6 +126,7 @@ const deleteTask = async (slug, user, log) => {
 
 export default {
   getTasks,
+  getTask,
   createTask,
   updateTask,
   deleteTask
