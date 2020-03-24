@@ -56,4 +56,19 @@ describe('Tasks Test', () => {
 
     done();
   });
+
+  // it('logged in user can update task', async done => {
+  //   // Write test here
+  //   done();
+  // });
+
+  // it('logged in user can delete task', async done => {
+  //   // Write test here.
+  //   done();
+  // });
+
+  // it('gets single task', async done => {
+  //   // Write test here.
+  //   done();
+  // });
 });
