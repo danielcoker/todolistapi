@@ -75,8 +75,40 @@ const updateTask = async (data, slug, log) => {
   return task;
 };
 
+/**
+ * @desc Service to delete task.
+ * @param {string} slug Task slug.
+ * @param {object} user User.
+ * @param {function} log Logger utility for logging messages.
+ * @returns {boolean} True or false.
+ * @throws {Error} Any error that prevents the service from executing.
+ */
+const deleteTask = async (slug, user, log) => {
+  let task = await Task.findOne({ slug });
+
+  log.debug('Checking if task exists.');
+  if (!task) {
+    log.debug('Task with this slug does not exist. Throwing error.');
+    throw new ServiceError('Task does not exist.', 400);
+  }
+
+  log.debug('Check if user created this task.');
+  if (task.user.toString() !== user.id) {
+    log.debug('User is not authorized to update this course. Throwing error.');
+    throw new ServiceError(
+      'User is not authorized to update this course.',
+      400
+    );
+  }
+
+  task = await Task.findByIdAndDelete(task.id);
+
+  return true;
+};
+
 export default {
   getTasks,
   createTask,
-  updateTask
+  updateTask,
+  deleteTask
 };

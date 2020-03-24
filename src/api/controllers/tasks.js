@@ -71,8 +71,29 @@ const updateTask = catchControllerError(
       'Update task service executed without error, sending back a success response.'
     );
 
-    res.status(201).json({ success: true, data: task });
+    res.status(200).json({ success: true, data: task });
   }
 );
 
-export default { getTasks, createTask, updateTask };
+/**
+ * @desc Delete task.
+ * @acess Private
+ */
+const deleteTask = catchControllerError(
+  'Delete Task',
+  async (req, res, next) => {
+    const { log } = res.locals;
+
+    const slug = req.params.slug;
+
+    const deletedTask = await TaskService.deleteTask(slug, req.user, log);
+
+    log.debug(
+      'Delete task service executed without error, sending back success response.'
+    );
+
+    res.status(200).json({ success: true, data: {} });
+  }
+);
+
+export default { getTasks, createTask, updateTask, deleteTask };
